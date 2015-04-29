@@ -237,8 +237,8 @@ class BedrockDataRecord extends SilverSmithNode {
            
         }
 
-        $subdir = $this->recursive_file_exists($this->key.'.php', SilverSmith::get_project_dir().'/code/');        
-        return SilverSmith::get_project_dir()."/code/{$subdir}{$this->key}.php";
+        $subdir = $this->recursive_file_exists($this->key.'.php', SilverSmith::get_project_dir().'/code/');
+        return "{$subdir}{$this->key}.php";
     }
     
     
@@ -474,12 +474,14 @@ class BedrockDataRecord extends SilverSmithNode {
                 return '';
             }
             
-            //check all subdirectories            
-            foreach(new recursiveIteratorIterator($currentdir = new recursiveDirectoryIterator($directory)) as $file)
-            {
-                if( $directory.$currentdir.'/'.$filename == $file )
-                {
-                    return $currentdir . '/';
+            //check all subdirectories
+			$dir = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::KEY_AS_FILENAME);
+			$files = new RecursiveTreeIterator($dir);
+
+			foreach($files as $file => $line) {
+
+                if( $filename == $file ) {
+					return $files->getInnerIterator()->current()->getPath() . DIRECTORY_SEPARATOR;
                 }
             }
             return false;
