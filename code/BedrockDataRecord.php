@@ -230,14 +230,19 @@ class BedrockDataRecord extends SilverSmithNode {
      * @return string
      */
     public function getFilePath() {
+
+        $default_path = SilverSmith::get_project_dir() . DIRECTORY_SEPARATOR . 'code' . DIRECTORY_SEPARATOR;
+
         if ($this->getDecorator()) {
             //search if Decorator exists already
-            $subdir = $this->recursive_file_exists("{$this->key}Decorator.php", SilverSmith::get_project_dir().'/code/');
+            $subdir = $this->recursive_file_exists("{$this->key}Decorator.php", $default_path);
             return SilverSmith::get_project_dir()."/code/{$subdir}{$this->key}Decorator.php";
-           
         }
 
-        $subdir = $this->recursive_file_exists($this->key.'.php', SilverSmith::get_project_dir().'/code/');
+        $subdir = $this->recursive_file_exists($this->key.'.php', $default_path);
+        if(!$subdir) {
+            $subdir = $default_path;
+        }
         return "{$subdir}{$this->key}.php";
     }
     
@@ -473,15 +478,15 @@ class BedrockDataRecord extends SilverSmithNode {
             if (file_exists($directory.$filename)) {
                 return '';
             }
-            
-            //check all subdirectories
-			$dir = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::KEY_AS_FILENAME);
-			$files = new RecursiveTreeIterator($dir);
 
-			foreach($files as $file => $line) {
+            //check all subdirectories
+            $dir = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::KEY_AS_FILENAME);
+            $files = new RecursiveTreeIterator($dir);
+
+            foreach($files as $file => $line) {
 
                 if( $filename == $file ) {
-					return $files->getInnerIterator()->current()->getPath() . DIRECTORY_SEPARATOR;
+                    return $files->getInnerIterator()->current()->getPath() . DIRECTORY_SEPARATOR;
                 }
             }
             return false;
