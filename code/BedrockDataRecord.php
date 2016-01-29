@@ -400,7 +400,7 @@ class BedrockDataRecord extends SilverSmithNode {
      * @return bool
      */
     public function getHasSilverSmithedChildren() {
-        foreach (SilverSmithProject::get('PageTypes') as $p) {
+        if(SilverSmithProject::get('PageTypes')) foreach (SilverSmithProject::get('PageTypes') as $p) {
             if (($p->getParent() == $this->key) && $p->isSilverSmithed()) {
                 return true;
             }
