@@ -111,5 +111,3 @@ This error should be detected when any SilverSmith command is executed. If you d
 ```
 silversmith fix-mamp
 ```
-## More Information
-Check out the video tutorial of the SilverSmith CLI features at LeftAndMain: http://www.leftandmain.com/category/silversmith-2/
