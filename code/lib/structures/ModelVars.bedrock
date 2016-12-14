@@ -1,7 +1,7 @@
 
 <@ if DBVars @>
 
-	static $db = array (
+	private static $db = array (
 <@ each DBVars @>
 		'<@= :Name @>' => '<@= :Val @>',
 <@ /each @>
@@ -10,7 +10,7 @@
 
 <@ /if @>
 <@ if HasOneVars @>
-	static $has_one = array (
+	private static $has_one = array (
 <@ each HasOneVars @>
 		'<@= :Name @>' => '<@= :Val @>',
 <@ /each @>
@@ -19,7 +19,7 @@
 
 <@ /if @>
 <@ if HasManyVars @>
-	static $has_many = array (
+	private static $has_many = array (
 <@ each HasManyVars @>
 		'<@= :Name @>' => '<@= :Val @>',
 <@ /each @>
@@ -28,7 +28,7 @@
 	
 <@ /if @>
 <@ if ManyManyVars @>
-	static $many_many = array (
+	private static $many_many = array (
 <@ each ManyManyVars @>
 		'<@= :Name @>' => '<@= :Val @>',
 <@ /each @>
@@ -37,7 +37,7 @@
 	
 <@ /if @>
 <@ if BelongsManyManyVars @>
-	static $belongs_many_many = array (
+	private static $belongs_many_many = array (
 <@ each BelongsManyManyVars @>
 		'<@= :Name @>' => '<@= :Val @>',
 <@ /each @>
