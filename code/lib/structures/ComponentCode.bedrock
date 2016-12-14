@@ -22,6 +22,9 @@
 <@ if Decorator @>
 	public function updateGeneratedCMSFields(FieldList $fields) {
 <@ else @>
+	/**
+	 * @return FieldList
+	 */
 	public function getGeneratedCMSFields() {
                 $parentClassName = get_parent_class($this);
                 $parentClass = new $parentClassName;
