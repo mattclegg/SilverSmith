@@ -67,3 +67,38 @@
 		return $fields;
 	}
 
+
+<@ if Decorator @>
+<@ else @>
+<@ if PermissionProvider @>
+<@ each PermissionProvider @>
+	/**
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function can<@= Title @>($member = null) {
+		if (is_null($member)) {
+			if (!Member::currentUserID()) {
+				return false;
+			}
+		}
+		return Permission::checkMember($member, '<@= Content @>');
+	}
+<@ /each @>
+	/**
+	 * @return array
+	 */
+	public function providePermissions() {
+		return array(
+		<@ each PermissionProvider @>
+	'<@= Content @>' => array(
+				'name' => _t('<@= Namespace @>.<@= Content @>', '<@= Title @> <@= Model @>'),
+				'category' => _t('<@= Namespace @>.PERMISSIONS_<@= Model @>', '<@= Model @> Permissions'),
+				'help' => _t('<@= Namespace @>.<@= Content @>_HELP', 'Users can <@= Title @> <@= Model @>'),
+				'sort' => <@= :Name @>
+
+			),
+		<@ /each @>);
+	}
+<@ /if @>
+<@ /if @>

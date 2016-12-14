@@ -1,6 +1,6 @@
 [?php
 
-class <@= Key @> extends <@= Parent @> {
+class <@= Key @> extends <@= Parent @> <@ if PermissionProvider @> implements PermissionProvider<@ /if @> {
 	
 	/** //--// **/
 
