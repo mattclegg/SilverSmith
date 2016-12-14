@@ -92,7 +92,13 @@ class SilverSmith {
 	    }
 	    return $classes;
 	}
-	
+
+	/**
+	 * @return string
+	 */
+	protected static function get_project_dir() {
+		return self::$project_dir;
+	}
 
 	
 	

@@ -102,7 +102,7 @@ class SilverSmithProject
         }
         if ($components = self::get('Components')) {
             foreach ($components as $component) {
-                if ($component->getFields() || $component->getDecorator()) {
+                if ($component->getFields() || $component->getParent()) {
                     $ret[$component->getKey()] = $component;
                 }
                 if ($subcomponents = $component->getComponents()) {
