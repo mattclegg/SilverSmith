@@ -197,6 +197,15 @@ class SilverSmithUtil {
         return implode(' ', array_slice($words, 8, $num));
     }
     
+    public static function get_random_string($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
     
     
     
@@ -363,8 +372,15 @@ class SilverSmithUtil {
             if (!$object->$field) {
                 if(strstr($field, "Email")) {
                     $object->$field = preg_replace('/[^a-z@\.]/','',strtolower(self::get_lipsum_words(1)."@".self::get_lipsum_words(1).".com"));
-                }
-                elseif(strstr($field, "Phone")) {
+                } elseif(strstr($field, "Name")) {
+                    $object->$field = ucfirst(strtolower(self::get_lipsum_words(1)))." ".ucfirst(strtolower(self::get_lipsum_words(1)));
+                } elseif(strstr($field, "City")) {
+                    $object->$field = preg_replace('/[^a-z@\.]/','',strtolower(self::get_lipsum_words(1)));
+                } elseif(strstr($field, "Postcode")) {
+                    $object->$field = strtoupper(self::get_random_string(rand(5,7)));
+                } elseif(strstr($field, "Age") || strstr($field, "Mobile")) {
+                    $object->$field = rand(rand(18, 25), rand(50, 60));
+                } elseif(strstr($field, "Phone") || strstr($field, "Mobile")) {
                     $object->$field = rand(100,999)."-".rand(100,999)."-".rand(100,999);
                 }
                 else {
