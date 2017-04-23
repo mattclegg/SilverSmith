@@ -82,7 +82,9 @@ class BedrockComponent extends BedrockDataRecord {
             if ($components = $node->getComponents()) {
                 if ($me = $components->get($this->key)) {
                     if ($me->getType() == "many") {
-                        $has_one[$node->key] = $node->key;
+                        if (!in_array($node->key, $has_one)) {
+                            $has_one[$node->key] = $node->key;
+                        }
                     }
                 }
             }
